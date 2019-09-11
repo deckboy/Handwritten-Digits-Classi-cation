@@ -20,8 +20,10 @@ def visualize_features(X, y):
         in submission.
     '''
     ### YOUR CODE HERE
-
-
+    import matplotlib.pyplot as plt
+    plt.figure()
+    plt.scatter(X[:,0],X[:,1],c=y,cmap='RdBu')
+    plt.savefig('train_features.png')
     ### END YOUR CODE
 
 def visualize_result(X, y, W):
