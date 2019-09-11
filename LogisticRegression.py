@@ -5,7 +5,7 @@ import sys
 """
 
 class logistic_regression(object):
-	
+
     def __init__(self, learning_rate, max_iter):
         self.learning_rate = learning_rate
         self.max_iter = max_iter
@@ -22,9 +22,9 @@ class logistic_regression(object):
         """
         n_samples, n_features = X.shape
 
-		### YOUR CODE HERE
+        ### YOUR CODE HERE
 
-		### END YOUR CODE
+        ### END YOUR CODE
         return self
 
     def fit_BGD(self, X, y, batch_size):
@@ -38,9 +38,9 @@ class logistic_regression(object):
         Returns:
             self: Returns an instance of self.
         """
-		### YOUR CODE HERE
+        ### YOUR CODE HERE
 
-		### END YOUR CODE
+        ### END YOUR CODE
         return self
 
     def fit_SGD(self, X, y):
@@ -53,9 +53,9 @@ class logistic_regression(object):
         Returns:
             self: Returns an instance of self.
         """
-		### YOUR CODE HERE
+        ### YOUR CODE HERE
 
-		### END YOUR CODE
+        ### END YOUR CODE
         return self
 
     def _gradient(self, _x, _y):
@@ -70,9 +70,9 @@ class logistic_regression(object):
             _g: An array of shape [n_features,]. The gradient of
                 cross-entropy with respect to self.W.
         """
-		### YOUR CODE HERE
+    ### YOUR CODE HERE
 
-		### END YOUR CODE
+    ### END YOUR CODE
 
     def get_params(self):
         """Get parameters for this perceptron model.
@@ -95,9 +95,9 @@ class logistic_regression(object):
             preds_proba: An array of shape [n_samples, 2].
                 Only contains floats between [0,1].
         """
-		### YOUR CODE HERE
+    ### YOUR CODE HERE
 
-		### END YOUR CODE
+    ### END YOUR CODE
 
 
     def predict(self, X):
@@ -109,9 +109,9 @@ class logistic_regression(object):
         Returns:
             preds: An array of shape [n_samples,]. Only contains 1 or -1.
         """
-		### YOUR CODE HERE
+    ### YOUR CODE HERE
 
-		### END YOUR CODE
+    ### END YOUR CODE
 
     def score(self, X, y):
         """Returns the mean accuracy on the given test data and labels.
@@ -123,10 +123,10 @@ class logistic_regression(object):
         Returns:
             score: An float. Mean accuracy of self.predict(X) wrt. y.
         """
-		### YOUR CODE HERE
+    ### YOUR CODE HERE
 
-		### END YOUR CODE
-    
+    ### END YOUR CODE
+
     def assign_weights(self, weights):
         self.W = weights
         return self

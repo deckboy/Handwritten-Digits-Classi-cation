@@ -42,27 +42,27 @@ def prepare_X(raw_X):
         X: An array of shape [n_samples, n_features].
     """
     raw_image = raw_X.reshape((-1, 16, 16))
+    # Feature 1: Measure of Symmetry
+    ### YOUR CODE HERE
+    flip_image = np.flip(raw_image,2)
+    f_symm = -(np.sum(np.absolute(raw_image - flip_image),axis=(1,2)))/256
+    ### END YOUR CODE
 
-	# Feature 1: Measure of Symmetry
-	### YOUR CODE HERE
+    # Feature 2: Measure of Intensity
+    ### YOUR CODE HERE
+    f_intensity = np.sum(raw_image,axis=(1,2))/256
+    ### END YOUR CODE
 
-	### END YOUR CODE
+    # Feature 3: Bias Term. Always 1.
+    ### YOUR CODE HERE
+    f_bias = np.ones(f_symm.shape[0])
+    ### END YOUR CODE
 
-	# Feature 2: Measure of Intensity
-	### YOUR CODE HERE
-	
-	### END YOUR CODE
-
-	# Feature 3: Bias Term. Always 1.
-	### YOUR CODE HERE
-	
-	### END YOUR CODE
-
-	# Stack features together in the following order.
-	# [Feature 3, Feature 1, Feature 2]
-	### YOUR CODE HERE
-	
-	### END YOUR CODE
+    # Stack features together in the following order.
+    # [Feature 3, Feature 1, Feature 2]
+    ### YOUR CODE HERE
+    X = np.stack((f_bias,f_symm,f_intensity),axis=-1)
+    ### END YOUR CODE
     return X
 
 def prepare_y(raw_y):
