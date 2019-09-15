@@ -95,22 +95,27 @@ def main():
     logisticR_classifier = logistic_regression(learning_rate=0.5, max_iter=100)
 
     logisticR_classifier.fit_GD(train_X, train_y)
+    print('GD')
     print(logisticR_classifier.get_params())
     print(logisticR_classifier.score(train_X, train_y))
 
     logisticR_classifier.fit_BGD(train_X, train_y, data_shape)
+    print('BGD')
     print(logisticR_classifier.get_params())
     print(logisticR_classifier.score(train_X, train_y))
 
     logisticR_classifier.fit_SGD(train_X, train_y)
+    print('SGD')
     print(logisticR_classifier.get_params())
     print(logisticR_classifier.score(train_X, train_y))
 
     logisticR_classifier.fit_BGD(train_X, train_y, 1)
+    print('BGD, size = 1')
     print(logisticR_classifier.get_params())
     print(logisticR_classifier.score(train_X, train_y))
 
     logisticR_classifier.fit_BGD(train_X, train_y, 10)
+    print('BGD, size = 10')
     print(logisticR_classifier.get_params())
     print(logisticR_classifier.score(train_X, train_y))
 

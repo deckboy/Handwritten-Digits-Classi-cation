@@ -23,7 +23,13 @@ class logistic_regression(object):
         n_samples, n_features = X.shape
 
         ### YOUR CODE HERE
-
+        self.assign_weights(np.random.random(n_features))
+        for i in range(self.max_iter):
+            w_add = np.zeros(n_features)
+            for j in range(n_samples):
+                w_add += self.learning_rate * (- self._gradient(X[j],y[j]))
+            w_add = w_add / n_samples
+            self.W +=w_add
         ### END YOUR CODE
         return self
 
@@ -39,7 +45,20 @@ class logistic_regression(object):
             self: Returns an instance of self.
         """
         ### YOUR CODE HERE
+        n_samples, n_features = X.shape
+        self.assign_weights(np.random.random(n_features))
+        for i in range(self.max_iter):
+            w_add = np.zeros(n_features)
 
+            if batch_size<=n_samples:
+                mini_batch = np.random.choice(n_samples, batch_size)
+            else:
+                mini_batch = np.linspace(0,n_samples,n_samples-1)
+
+            for j in mini_batch:
+                w_add += self.learning_rate * (- self._gradient(X[j],y[j]))
+            w_add = w_add / n_samples
+            self.W +=w_add
         ### END YOUR CODE
         return self
 
@@ -54,7 +73,12 @@ class logistic_regression(object):
             self: Returns an instance of self.
         """
         ### YOUR CODE HERE
-
+        n_samples, n_features = X.shape
+        self.assign_weights(np.random.random(n_features))
+        for i in range(self.max_iter):
+            j = np.random.randint(n_samples)
+            w_add = self.learning_rate * (- self._gradient(X[j],y[j]))
+            self.W +=w_add
         ### END YOUR CODE
         return self
 
@@ -70,9 +94,11 @@ class logistic_regression(object):
             _g: An array of shape [n_features,]. The gradient of
                 cross-entropy with respect to self.W.
         """
-    ### YOUR CODE HERE
-
-    ### END YOUR CODE
+        ### YOUR CODE HERE
+        c_exp = np.exp(-_y*np.dot(self.W,_x))
+        _g = c_exp/(1+c_exp)*(-_y)*_x
+        return _g
+        ### END YOUR CODE
 
     def get_params(self):
         """Get parameters for this perceptron model.
@@ -109,9 +135,16 @@ class logistic_regression(object):
         Returns:
             preds: An array of shape [n_samples,]. Only contains 1 or -1.
         """
-    ### YOUR CODE HERE
+        ### YOUR CODE HERE
+        n_samples = X.shape[0]
+        preds = np.ones(n_samples)
 
-    ### END YOUR CODE
+        _s = np.matmul(X,self.W) # array operation
+        _logit = 1/(1+np.exp(-_s))
+        preds[_logit<0.5] = -1
+
+        ### END YOUR CODE
+        return preds
 
     def score(self, X, y):
         """Returns the mean accuracy on the given test data and labels.
@@ -123,9 +156,11 @@ class logistic_regression(object):
         Returns:
             score: An float. Mean accuracy of self.predict(X) wrt. y.
         """
-    ### YOUR CODE HERE
-
-    ### END YOUR CODE
+        ### YOUR CODE HERE
+        preds = self.predict(X)
+        score = np.sum(preds ==y)/y.shape[0]
+        ### END YOUR CODE
+        return score
 
     def assign_weights(self, weights):
         self.W = weights
