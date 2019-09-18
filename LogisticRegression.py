@@ -121,9 +121,16 @@ class logistic_regression(object):
             preds_proba: An array of shape [n_samples, 2].
                 Only contains floats between [0,1].
         """
-    ### YOUR CODE HERE
+        ### YOUR CODE HERE
+        n_samples = X.shape[0]
+        preds_proba = np.zeros((n_samples,2))
 
-    ### END YOUR CODE
+        _s = np.matmul(X, self.W)  # array operation
+        _logit = 1 / (1 + np.exp(-_s))
+        preds_proba[:,0] = _logit
+        preds_proba[:, 1] = 1-_logit
+        return preds_proba
+        ### END YOUR CODE
 
 
     def predict(self, X):
