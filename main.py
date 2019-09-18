@@ -116,15 +116,16 @@ def main():
     print(logisticR_classifier.score(train_X, train_y))
     #preds_proba = logisticR_classifier.predict_proba(train_X)
 
+    logisticR_classifier.fit_SGD(train_X, train_y)
+    print('SGD')
+    print(logisticR_classifier.get_params())
+    print(logisticR_classifier.score(train_X, train_y))
+
     logisticR_classifier.fit_BGD(train_X, train_y, data_shape)
     print('BGD')
     print(logisticR_classifier.get_params())
     print(logisticR_classifier.score(train_X, train_y))
 
-    logisticR_classifier.fit_SGD(train_X, train_y)
-    print('SGD')
-    print(logisticR_classifier.get_params())
-    print(logisticR_classifier.score(train_X, train_y))
     '''
     logisticR_classifier.fit_BGD(train_X, train_y, 1)
     print('BGD, size = 1')
@@ -258,11 +259,6 @@ def main():
     print(logisticR_classifier_multiclass.score(train_X, train_y))
     ### END YOUR CODE
 
-
-
-
-
-
     train_X = train_X_all[train_idx]
     train_y = train_y_all[train_idx]
     train_X = train_X[0:1350]
@@ -277,8 +273,8 @@ def main():
     ##### Hint: we suggest to set the convergence condition as "np.linalg.norm(gradients*1./batch_size) < 0.0005" or max_iter=10000:
     ### YOUR CODE HERE
     logisticR_classifier = logistic_regression(learning_rate=0.5, max_iter=10000)
-    logisticR_classifier.fit_SGD(train_X, train_y)
-    print('SGD')
+    logisticR_classifier.fit_BGD(train_X, train_y,100)
+    print('BGD')
     print(logisticR_classifier.get_params())
     print(logisticR_classifier.score(train_X, train_y))
     ### END YOUR CODE
@@ -293,7 +289,38 @@ def main():
     Then, for what leaning rates, we can obtain w_1-w_2= w for all training steps so that these two models are equivalent for each training step. 
     '''
     ### YOUR CODE HERE
+    train_X = train_X_all[train_idx]
+    train_y = train_y_all[train_idx]
+    train_X = train_X[0:1350]
+    train_y = train_y[0:1350]
+    valid_X = valid_X_all[val_idx]
+    valid_y = valid_y_all[val_idx]
+    train_y[np.where(train_y==2)] = 0
+    valid_y[np.where(valid_y==2)] = 0
+    print('-----------softmax -----------')
+    for iters in [1000,2000,3000,4000]:
+        logisticR_classifier_multiclass = logistic_regression_multiclass(learning_rate=0.5, max_iter = iters, k=2)
+        logisticR_classifier_multiclass.fit_BGD(train_X, train_y, 100)
+        W_out = logisticR_classifier_multiclass.get_params()
+        W1_2 = W_out[:,0]-W_out[:,1]
+        print(W1_2)
 
+
+    train_X = train_X_all[train_idx]
+    train_y = train_y_all[train_idx]
+    train_X = train_X[0:1350]
+    train_y = train_y[0:1350]
+    valid_X = valid_X_all[val_idx]
+    valid_y = valid_y_all[val_idx]
+    #####       set lables to -1 and 1 for sigmoid classifer
+    train_y[np.where(train_y==2)] = -1
+    valid_y[np.where(valid_y==2)] = -1
+
+    print('-----------logistic -----------')
+    for iters in [1000,2000,3000,4000]:
+        logisticR_classifier = logistic_regression(learning_rate=1, max_iter=iters)
+        logisticR_classifier.fit_BGD(train_X, train_y,100)
+        print(logisticR_classifier.get_params())
     ### END YOUR CODE
 
 # ------------End------------

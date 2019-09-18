@@ -23,7 +23,7 @@ class logistic_regression(object):
         n_samples, n_features = X.shape
 
         ### YOUR CODE HERE
-        self.assign_weights(np.random.random(n_features))
+        self.assign_weights(np.zeros(n_features))
         for i in range(self.max_iter):
             w_add = np.zeros(n_features)
             for j in range(n_samples):
@@ -46,7 +46,7 @@ class logistic_regression(object):
         """
         ### YOUR CODE HERE
         n_samples, n_features = X.shape
-        self.assign_weights(np.random.random(n_features))
+        self.assign_weights(np.zeros(n_features))
         for i in range(self.max_iter):
             w_add = np.zeros(n_features)
 
@@ -74,7 +74,7 @@ class logistic_regression(object):
         """
         ### YOUR CODE HERE
         n_samples, n_features = X.shape
-        self.assign_weights(np.random.random(n_features))
+        self.assign_weights(np.zeros(n_features))
         for i in range(self.max_iter):
             j = np.random.randint(n_samples)
             w_add = self.learning_rate * (- self._gradient(X[j],y[j]))
