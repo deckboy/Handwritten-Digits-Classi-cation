@@ -1,5 +1,6 @@
 import os
 import matplotlib.pyplot as plt
+plt.switch_backend('agg')
 from LogisticRegression import logistic_regression
 from LRM import logistic_regression_multiclass
 from DataReader import *
@@ -217,10 +218,10 @@ def main():
     print(logisticR_classifier_multiclass.get_params())
     print(logisticR_classifier_multiclass.score(train_X, train_y))
     '''
-    '''
-    logisticR_classifier_multiclass = logistic_regression_multiclass(learning_rate=2, max_iter=200,  k= 3)
+
+    logisticR_classifier_multiclass = logistic_regression_multiclass(learning_rate=0.5, max_iter=400,  k= 3)
     logisticR_classifier_multiclass.fit_BGD(train_X, train_y, train_X.shape[0])
-    print('Hyper Parameters; 2,200, full_range')
+    print('Hyper Parameters: 0.5,400, full_range')
     print(logisticR_classifier_multiclass.get_params())
     print(logisticR_classifier_multiclass.score(train_X, train_y))
     ### END YOUR CODE
@@ -234,7 +235,7 @@ def main():
     print('test (validation) accuracy')
     print(logisticR_classifier_multiclass.score(valid_X, valid_y))
     ### END YOUR CODE
-    '''
+    
 
     # ------------Connection between sigmoid and softmax------------
     ############ Now set k=2, only use data from '1' and '2' 
